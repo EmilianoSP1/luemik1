@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\EnsureSuperAdmin;
+use App\Providers\FortifyServiceProvider; // <-- IMPORTANTE
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,15 +13,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Alias de middlewares (aquí va tu superadmin)
+        // Alias de middlewares
         $middleware->alias([
             'superadmin' => EnsureSuperAdmin::class,
         ]);
-
-        // Si quieres, aquí también puedes registrar middlewares globales o de grupos.
-        // $middleware->appendToGroup('web', \App\Http\Middleware\VerifyCsrfToken::class);
-        // $middleware->appendToGroup('api', \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api');
     })
+    ->withProviders([
+        FortifyServiceProvider::class,   // <-- AGREGA ESTO
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

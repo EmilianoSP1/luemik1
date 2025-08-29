@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/luemik/public/
+RewriteRule ^(.*)$ /luemik/public/$1 [L]
