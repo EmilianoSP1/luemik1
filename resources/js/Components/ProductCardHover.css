@@ -1,0 +1,45 @@
+/* Eleva el card sutilmente al hover */
+.lift-on-hover{
+  transition: transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s ease, filter .28s ease;
+  will-change: transform;
+}
+.lift-on-hover:hover{
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  filter: saturate(1.08);
+}
+
+/* Swap de imagen con transición suave */
+/* REEMPLAZA tu bloque anterior de .hswap por este */
+.hswap{
+  position: relative;
+  width: 100%;
+  height: 100%;        /* ⬅️ clave: toma el alto del contenedor (.catalogo-img-container) */
+  aspect-ratio: auto;  /* el ratio ahora lo controla el contenedor, no aquí */
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.hswap-img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity .35s ease, transform .35s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.hswap-main{ opacity: 1; transform: scale(1.02); }
+.hswap-hover{ opacity: 0; transform: scale(1); }
+
+.hswap:hover .hswap-main{ opacity: 0; transform: scale(1); }
+.hswap:hover .hswap-hover{ opacity: 1; transform: scale(1.02); }
+
+/* Accesibilidad: si el usuario prefiere menos animación */
+@media (prefers-reduced-motion: reduce) {
+  .lift-on-hover{ transition: none; }
+  .lift-on-hover:hover{ transform: none; box-shadow: none; filter: none; }
+  .hswap-img{ transition: none; }
+}

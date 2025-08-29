@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Opcional: fondo oscuro global y texto blanco */
+@layer base {
+  html, body, #app { min-height: 100%; }
+  body { @apply bg-[#0b0b12] text-white; }
+}

@@ -1,0 +1,144 @@
+/* ---- GLASS NAV PRINCIPAL ---- */
+.glass-nav {
+  background: rgba(30, 22, 40, 0.35);
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+  border: 1.5px solid rgba(255,255,255,0.09);
+  transition: width 0.34s cubic-bezier(.6,-0.03,.67,.98);
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 18px 0 18px;
+  position: relative;
+}
+
+/* ---- BOTONES ICONOS ---- */
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.13s;
+  font-size: 1.18em;
+  padding: 6px 8px;
+  border-radius: 100%;
+  margin-left: 8px;
+  margin-right: 0;
+}
+.icon-btn:hover {
+  opacity: 1;
+  background: rgba(255,255,255,0.08);
+}
+
+/* ---- LOGIN BUTTON ---- */
+.login-btn {
+  margin-left: 14px;
+  background: rgba(255,255,255,0.85);
+  color: #262130;
+  font-weight: 600;
+  border: none;
+  border-radius: 9999px;
+  padding: 4px 22px;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, color 0.2s;
+}
+.login-btn:hover {
+  background: #fff;
+  color: #B70065;
+}
+
+/* ---- BUSCADOR ANIMADO ---- */
+.glass-nav .glass-search-anim {
+  display: flex;
+  align-items: center;
+  background: rgba(30, 22, 40, 0.35);
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12);
+  border: 1.2px solid rgba(255,255,255,0.10);
+  border-radius: 2rem;
+  margin-left: 0.7rem;
+  margin-right: 0.1rem;
+  min-width: 0;
+  height: 40px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  /* para animar con framer-motion */
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none !important;
+  box-shadow: none !important;   /* Quita la línea azul */
+  color: #fff;
+  font-size: 1em;
+  width: 160px;                  /* ¡Más amplio! */
+  padding: 7px 8px 7px 13px;
+  transition: background 0.16s;
+}
+
+
+.search-input::placeholder {
+  color: #fff;
+  opacity: 0.7;
+  font-size: 0.99em;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.12em;
+  opacity: 0.87;
+  margin-left: 2px;
+  margin-right: 7px;
+  cursor: pointer;
+  border-radius: 100%;
+  transition: background 0.14s;
+}
+.close-btn:hover {
+  background: rgba(255,255,255,0.14);
+  color: #F27FB1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .glass-nav {
+    padding: 0.5rem 0.9rem;
+    min-height: 38px;
+  }
+  .login-btn {
+    padding: 3px 15px;
+    font-size: 0.97rem;
+    margin-left: 8px;
+  }
+  .glass-nav .glass-search-anim {
+    height: 36px;
+  }
+}
+
+.header-link {
+  color: #fff;
+  opacity: 0.76;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.18s, color 0.18s;
+  font-size: 1.01rem;
+  padding: 3px 10px;
+  border-radius: 9px;
+}
+.header-link:hover {
+  color: #FEA8C7;
+  opacity: 1;
+  background: rgba(255,255,255,0.09);
+}
+
+
+.cart-sidebar-glass {
+  /* Si quieres efectos aún más pro, pon esto en tu CSS */
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  background: rgba(26, 22, 34, 0.60);
+  border-left: 1.5px solid rgba(255,255,255,0.10);
+}

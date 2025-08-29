@@ -1,0 +1,12 @@
+/* Aurora/Aurora.css */
+.aurora-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 55vh;         /* Solo arriba, puedes ajustar */
+  pointer-events: none;
+  z-index: 1;           /* Debajo del contenido */
+}
+
+

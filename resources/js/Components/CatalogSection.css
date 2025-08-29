@@ -1,0 +1,492 @@
+.catalog-section-bg {
+  background: #110f16;
+  min-height: 540px;
+  padding: 54px 0 44px 0;
+  width: 100%;
+}
+
+/* ↓ Menos ancho total para que no ocupe toda la pantalla */
+.catalogo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(230px, 1fr));
+  gap: 38px 30px;
+  max-width: 1180px;          /* antes 1400px */
+  margin: 0 auto;             /* centra */
+  padding: 0 2rem;            /* margen lateral extra */
+}
+@media (max-width: 1200px) {
+  .catalogo-grid { grid-template-columns: repeat(3, minmax(230px, 1fr)); }
+}
+@media (max-width: 900px) {
+  .catalogo-grid { grid-template-columns: repeat(2, minmax(230px, 1fr)); }
+}
+@media (max-width: 600px) {
+  .catalogo-grid { grid-template-columns: 1fr; padding: 0 1rem; }
+}
+
+.catalogo-item {
+  background: rgba(24,19,32,0.93);
+  border-radius: 1.3rem;
+  overflow: hidden;
+  box-shadow: 0 3px 16px 0 rgba(24,0,48,0.09);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: box-shadow 0.18s, transform 0.13s;
+}
+.catalogo-item:hover {
+  box-shadow: 0 8px 32px 0 rgba(100,60,160,0.18);
+  transform: translateY(-5px) scale(1.021);
+}
+
+/* === Marco de imagen === */
+.catalogo-img-container {
+  width: 100%;
+  position: relative;
+  aspect-ratio: 4/5;           /* usa 1/1 si tus fotos son cuadradas */
+  min-height: 220px;
+  overflow: hidden;
+  border-radius: 1.1rem;
+  background: #23202b;
+}
+.catalogo-img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: inherit;
+  border-radius: 1.1rem 1.1rem 0 0;
+  background: #23202b;
+  display: block;
+  min-height: 220px;
+}
+
+/* === Compatibilidad con HoverSwapImage.jsx === */
+.catalogo-img-container .hswap{
+  width: 100%;
+  aspect-ratio: inherit;
+  border-radius: 1.1rem;
+  overflow: hidden;
+}
+.catalogo-img-container .hswap-img{
+  border-radius: 1.1rem;
+}
+
+/* Iconos dentro de la imagen */
+.catalogo-fav {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: rgba(18,15,22,0.85);
+  border: none;
+  border-radius: 100%;
+  padding: 5px;
+  color: #fff;
+  font-size: 1.36rem;
+  cursor: pointer;
+  transition: color 0.14s;
+  z-index: 2;
+}
+.catalogo-fav.activo { color: #FF4C8B; }
+
+/* Botón + y glassmorph popup */
+.catalogo-plus-container {
+  position: absolute;
+  left: 6px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+.catalogo-plus-popup-zone{
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+.catalogo-plus {
+  background: none !important;
+  border: none;
+  outline: none;
+  color: #0c0a11;
+  font-size: 2.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 2px 0 0;
+  margin: 0;
+  line-height: 1;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+.catalogo-plus:hover,
+.catalogo-plus:focus-visible {
+  color: #3a29ff;
+}
+
+.catalogo-tallas-popup {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 36px;
+  bottom: -6px;
+  background: rgba(36, 34, 51, 0.64);
+  border-radius: 1.1rem;
+  box-shadow: 0 3px 16px 0 rgba(36,34,51,0.19);
+  padding: 6px 6px;
+  gap: 2.5px;
+  backdrop-filter: blur(8px) saturate(1.14);
+  border: 1.3px solid rgba(145,140,185,0.18);
+  z-index: 30;
+  animation: fadein 0.13s;
+}
+
+.catalogo-talla {
+  background: rgba(56, 54, 74, 0.70);
+  color: #fff;
+  border: none;
+  border-radius: 0.85rem;
+  margin: 0 1.5px;
+  padding: 5px 9px;
+  font-size: 0.92rem;
+  min-width: 28px;
+  cursor: pointer;
+  transition: background 0.14s, color 0.13s, box-shadow 0.15s;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  outline: none;
+  box-shadow: 0 0 0 transparent;
+}
+.catalogo-talla:hover,
+.catalogo-talla:focus-visible {
+  background: #3a29ff;
+  color: #fff;
+  box-shadow: 0 2px 10px #4c3cff33;
+}
+
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+/* === Info debajo de la imagen (sin “panel” extra) === */
+.catalogo-info {
+  width: 100%;
+  padding: 10px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: static !important;
+  gap: 6px;
+  background: transparent;     /* deja ver el fondo */
+}
+
+/* Título estilo etiqueta + línea */
+.catalogo-nombre {
+  font-size: 0.95rem !important;
+  font-weight: 900;
+  color: #fff !important;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 !important;
+  padding: 0 0 6px 0;
+  width: 100%;
+  border-bottom: 2px solid rgba(255,255,255,.85);
+}
+
+/* Fila de precios como en el ejemplo */
+.catalogo-precios{
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 6px;
+}
+.precio-antes{
+  color: rgba(255,255,255,.55);
+  text-decoration: line-through;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.precio-ahora{
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+/* Compatibilidad si sigues usando .catalogo-precio individual */
+.catalogo-precio {
+  font-size: 1rem !important;
+  font-weight: 600;
+  color: #fff !important;
+  margin: 0 !important;
+  text-align: left !important;
+  letter-spacing: -0.01em;
+  opacity: .95;
+}
+
+.catalogo-desc {
+  display: none; /* ocúltalo para que “no haya nada abajo” */
+}
+
+/* Carrito */
+.cart-sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 380px;
+  background: #191620fa;
+  color: #fff;
+  box-shadow: -3px 0 36px #0006;
+  z-index: 120;
+  padding: 36px 30px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  animation: fadein 0.23s;
+}
+.cart-close {
+  position: absolute;
+  right: 22px;
+  top: 16px;
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 1.95rem;
+  cursor: pointer;
+}
+.cart-item {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid #282338;
+}
+.cart-img {
+  width: 54px;
+  border-radius: 0.7rem;
+}
+.cart-nombre { font-size: 1rem; font-weight: 600; }
+.cart-talla { color: #aaa; font-size: 0.98rem; }
+.cart-precio { color: #ffffff; font-weight: 600; margin-top: 2px; }
+.cart-total {
+  font-size: 1.11rem;
+  margin-top: 18px;
+  margin-bottom: 12px;
+  text-align: right;
+  font-weight: 700;
+}
+.cart-checkout {
+  background: #3a29ff;
+  color: #fff;
+  padding: 10px 0;
+  border-radius: 0.7rem;
+  border: none;
+  font-size: 1.09rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .cart-sidebar {
+    width: 98vw;
+    padding: 20px 7vw 18px 7vw;
+  }
+}
+
+/* ——— Línea bajo el título SOLO cuando el cursor está en la imagen ——— */
+.catalogo-nombre{
+  border-bottom: 2px solid transparent;   /* oculta por defecto */
+  padding-bottom: 6px;
+  transition: border-color .22s ease, opacity .22s ease;
+}
+
+/* Al pasar el mouse sobre la imagen, muestra la línea */
+.catalogo-img-container:hover + .catalogo-info .catalogo-nombre{
+  border-bottom-color: rgba(255,255,255,.95);
+}
+
+/* ——— Info totalmente transparente (sin panel) ——— */
+.catalogo-info{
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* (Opcional) Suaviza la visibilidad de precios al pasar por la imagen */
+.catalogo-precios .precio-antes,
+.catalogo-precios .precio-ahora{
+  transition: opacity .22s ease;
+}
+.catalogo-precios .precio-antes{ opacity: .55; }
+.catalogo-precios .precio-ahora{ opacity: .95; }
+
+/* Al pasar por la imagen, enfatiza un poco más el precio actual */
+.catalogo-img-container:hover + .catalogo-info .precio-ahora{ opacity: 1; }
+.catalogo-img-container:hover + .catalogo-info .precio-antes{ opacity: .8; }
+
+
+
+/* ——— Quitar fondos para que se vea el fondo global ——— */
+.catalog-section-bg{
+  background: transparent !important;   /* antes #110f16 */
+}
+
+/* Card sin “panel” */
+.catalogo-item{
+  background: transparent !important;   /* quita la placa oscura */
+  box-shadow: none !important;          /* opcional: sin sombra base */
+}
+.catalogo-item:hover{
+  box-shadow: none !important;          /* si quieres mantener la elevación sin sombra, deja solo el transform */
+}
+
+/* Marco de imagen sin color de relleno */
+.catalogo-img-container{
+  background: transparent !important;   /* antes #23202b */
+}
+.catalogo-img{
+  background: transparent !important;   /* por si aún usas <img> directo */
+}
+
+/* Si usas HoverSwapImage, asegura que tampoco pinta fondo */
+.catalogo-img-container .hswap,
+.catalogo-img-container .hswap-img{
+  background: transparent !important;
+}
+
+/* (opcional) Si quieres un mínimo contorno solo al hover del card */
+.catalogo-item:hover .catalogo-img-container{
+  outline: 1px solid rgba(255,255,255,.06);
+  outline-offset: 0;                    /* quítalo si no lo quieres */
+}
+
+
+
+/* ——— Compactar título + línea + precios ——— */
+
+/* reduce el espacio entre título y precios */
+.catalogo-info{
+  gap: 3px !important;            /* antes ~6px */
+  padding-top: 4px !important;    /* lo sube un pelín */
+}
+
+/* línea más “pegadita” al título */
+.catalogo-nombre{
+  line-height: 1.05 !important;   /* compacta la altura del texto */
+  padding-bottom: 2px !important; /* antes 6px: acerca la línea */
+  border-bottom-width: 2px;       /* grosor de la línea */
+}
+
+/* sube los precios (menos margen arriba) */
+.catalogo-precios{                 /* cuando usas antes/ahora */
+  margin-top: 2px !important;      /* antes 6px */
+}
+.catalogo-precio{                  /* cuando usas precio único */
+  margin-top: 2px !important;
+  line-height: 1.05 !important;
+}
+
+/* si aún lo quieres 1px más arriba, descomenta esto: */
+/*
+.catalogo-info{ transform: translateY(-1px); }
+*/
+
+/* ===== Posición AJUSTABLE del botón "+" ===== */
+/* Default (puedes cambiar los números de fallback) */
+.catalogo-plus-popup-zone{
+  left: var(--plus-left, 4px) !important;   /* más a la IZQUIERDA → baja este número o usa valores negativos */
+  right: var(--plus-right, auto) !important;/* para fijarlo a la DERECHA: pon --plus-left:auto y --plus-right:8px */
+  bottom: var(--plus-bottom, 12px) !important;/* SUBIR/BAJAR: reduce/aumenta este valor */
+  top: var(--plus-top, auto) !important;
+}
+
+/* Tamaño del ícono + ajustable */
+.catalogo-plus{
+  font-size: var(--plus-size, 2.1rem) !important; /* cambia 2.1rem si quieres más grande/pequeño */
+}
+
+/* Helpers opcionales por clases (úsalas junto a catalogo-plus-popup-zone) */
+.plus-left  { left: 6px  !important; right: auto !important; }
+.plus-right { right: 8px !important; left:  auto !important; }
+.plus-top   { top: 10px !important;  bottom:auto !important; }
+.plus-bottom{ bottom:12px!important; top:   auto !important; }
+
+
+
+/* ===== Salto suave y persistente en hover ===== */
+.catalogo-item{
+  transform: translateY(0) scale(1);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease;
+  will-change: transform;
+}
+
+.catalogo-item:hover{
+  transform: translateY(-10px) scale(1.012);  /* altura del “salto” */
+  box-shadow: 0 14px 36px rgba(0,0,0,.35);
+}
+
+/* (Opcional) un mini “pop” al entrar */
+.catalogo-item:hover{
+  animation: card-pop .18s ease-out;
+}
+@keyframes card-pop{
+  0%   { transform: translateY(0)     scale(1);     }
+  70%  { transform: translateY(-12px) scale(1.015); }
+  100% { transform: translateY(-10px) scale(1.012); }
+}
+
+
+/* ===== Hover estable: sube y se queda hasta que salga el ratón ===== */
+.catalogo-item{
+  transform: translateY(0) scale(1);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease;
+  position: relative;     /* necesario para z-index */
+  z-index: 0;
+  will-change: transform;
+}
+
+/* IMPORTANTE: desactiva animaciones previas que forzaban volver */
+.catalogo-item:hover{
+  animation: none !important;      /* por si quedó el @keyframes card-pop */
+  transform: translateY(-10px) scale(1.012) !important; /* altura del salto */
+  box-shadow: 0 14px 36px rgba(0,0,0,.35);
+  z-index: 10;                     /* lo pone por encima y no pierde el hover */
+}
+
+/* El link ocupa todo el área de la imagen */
+.catalogo-img-link{ display:block; width:100%; height:100%; }
+
+
+
+/* El link debe ocupar TODO el área de la imagen */
+.catalogo-img-link{
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+/* La caja de imagen tiene alto propio; mantenlo fijo */
+.catalogo-img-container{
+  aspect-ratio: 4/5; /* o 1/1 si tus fotos son cuadradas */
+  position:relative;
+  overflow:hidden;
+  border-radius:1.1rem;
+}
+
+/* La hswap debe rellenar el contenedor (no depender de inherit) */
+.catalogo-img-container .hswap{
+  width:100%;
+  height:100%;        /* <- clave */
+  aspect-ratio:auto;  /* ya no heredamos para evitar 0 de alto */
+  border-radius:inherit;
+  position:relative;  /* asegura que las imgs absolutas se posicionen aquí */
+  overflow:hidden;
+}
+
+/* Por si algún estilo previo quitó height */
+.catalogo-img-container .hswap-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  inset:0;
+}

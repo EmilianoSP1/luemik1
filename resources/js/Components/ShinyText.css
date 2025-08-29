@@ -1,0 +1,32 @@
+.shiny-text {
+  color: transparent; /* <-- Esto es CLAVE para shiny */
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.18) 20%,
+    rgba(255,255,255,1) 50%,
+    rgba(255,255,255,0.20) 80%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline-block;
+  animation: shine 4s linear infinite;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-size: 1.15rem;
+  filter: drop-shadow(0 1px 6px rgba(40,40,40,0.11));
+  /* Puedes aumentar el font-size si lo quieres más notorio */
+}
+
+@keyframes shine {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}
+
+.shiny-text.disabled {
+  animation: none;
+}

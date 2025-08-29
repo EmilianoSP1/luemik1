@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="370" height="480" viewBox="0 0 370 480">
+  <g>
+    <!-- Cuerpo -->
+    <path d="M25 480 L25 110 Q30 55 110 35 L185 20 L260 35 Q340 55 345 110 L345 480 Z" fill="none" stroke="#222" stroke-width="3"/>
+    <!-- Cuello en V -->
+    <path d="M110 35 Q185 60 260 35 Q185 100 110 35" fill="none" stroke="#222" stroke-width="3"/>
+  </g>
+</svg>

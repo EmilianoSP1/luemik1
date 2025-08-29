@@ -1,0 +1,50 @@
+.shiny-bar-glass {
+  background: rgba(30, 22, 40, 0.33);
+  border-radius: 2.2rem;
+  border: 1.3px solid rgba(255,255,255,0.10);
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12);
+  padding: 0.4rem 2.6rem 0.4rem 2.6rem;
+  margin-top: 0.2rem;
+  margin-bottom: 1.5rem;
+  min-width: 450px;
+  max-width: 670px;
+  /* Efecto glass suave, puedes ajustar los colores arriba */
+}
+
+.shiny-bar-glass .shiny-text {
+  color: transparent !important;
+  /* Mantiene el shiny, el CSS de shiny lo hace blanco animado */
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+.categoria-btn {
+  background: none;
+  border: none;
+  color: #c9c7cf;
+  font-size: 1.18rem;
+  font-weight: 400;
+  padding: 0 10px;
+  outline: none;
+  transition: color 0.18s;
+  cursor: pointer;
+}
+.categoria-btn:hover, .submenu-link:hover {
+  color: #fff;
+}
+
+.submenu {
+  min-width: 150px;
+  background: rgba(18, 15, 23, 0.98);
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.09);
+  box-shadow: 0 6px 32px 0 rgba(0,0,0,0.16);
+}
+.submenu-link {
+  color: #d1d0db;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.16s, color 0.16s;
+}
