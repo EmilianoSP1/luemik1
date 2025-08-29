@@ -183,14 +183,12 @@ Route::get('/producto/{slug}', [ProductController::class, 'show'])->name('produc
 */
 Route::get('/dashboard', function () {
     $u = Auth::user();
-    if (! $u) {
-        return redirect()->route('login');
-    }
+    if (!$u) return redirect()->route('login');
 
     $isSuper =
-        (Schema::hasColumn('users', 'superadmin')   && (int)($u->superadmin ?? 0) === 1) ||
-        (Schema::hasColumn('users', 'is_superadmin') && (int)($u->is_superadmin ?? 0) === 1) ||
-        (Schema::hasColumn('users', 'role')          && (($u->role ?? 'user') === 'superadmin'));
+        (Schema::hasColumn('users','superadmin')    && (int)($u->superadmin ?? 0) === 1) ||
+        (Schema::hasColumn('users','is_superadmin') && (int)($u->is_superadmin ?? 0) === 1) ||
+        (Schema::hasColumn('users','role')          && (($u->role ?? 'user') === 'superadmin'));
 
     return $isSuper
         ? redirect()->route('sa.dashboard')

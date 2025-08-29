@@ -25,7 +25,8 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // ✅ Evita que Fortify registre sus rutas para no duplicarlas con routes/auth.php (Breeze)
+        Fortify::ignoreRoutes();
     }
 
     /**

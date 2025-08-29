@@ -1,5 +1,5 @@
 // resources/js/Components/HeaderLuemik.jsx
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Link, router, usePage } from '@inertiajs/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiUser, FiShoppingBag, FiSearch, FiMenu, FiX, FiBookmark } from 'react-icons/fi';
@@ -22,6 +22,17 @@ export default function HeaderLuemik({
   // Toma el usuario global de Inertia si no vino por props
   const pageUser = usePage().props?.auth?.user ?? null;
   const safeUser = user ?? pageUser;
+
+  // ✅ Solo muestra "Panel Admin" si el correo es exactamente el del super admin
+  const isSuperAdmin = useMemo(() => {
+    if (!safeUser?.email) return false;
+    return safeUser.email === 'emiadmindluis@luemik.com';
+  }, [safeUser]);
+
+  // href seguro para el dashboard de SA (usa Ziggy si está, si no fallback)
+  const dashHref =
+    (typeof route === 'function' && route('sa.dashboard')) ||
+    '/sa/dashboard';
 
   const NAV_BASE_WIDTH = 300;
   const NAV_SEARCH_WIDTH = 410;
@@ -104,6 +115,18 @@ export default function HeaderLuemik({
           <Link href="/" className={navItem}>Inicio</Link>
           <Link href="/contacto" className={navItem}>Contacto</Link>
           <Link href="/droop" className={navItem}>Droop</Link>
+
+          {/* ✅ Panel Admin solo visible para el super admin */}
+          {isSuperAdmin && (
+            <Link
+              href={dashHref}
+              className={`${navItem} font-semibold`}
+              title="Ir al panel de Super Admin"
+              prefetch
+            >
+              Panel Admin
+            </Link>
+          )}
 
           {/* Catálogo (hover/click) */}
           <div
@@ -334,7 +357,7 @@ export default function HeaderLuemik({
                   <button
                     type="submit"
                     role="menuitem"
-                    className="w-full text-left text-red-400 hover:bg-white/10 transition"
+                    className="w-full text-left text-red-400 hover:bg_white/10 transition"
                     onClick={() => setShowUserMenu(false)}
                   >
                     Cerrar sesión
