@@ -6,6 +6,20 @@ import {
   FiDatabase, FiTruck, FiStar, FiPlus, FiFileText, FiExternalLink, FiHome
 } from 'react-icons/fi';
 
+/* === [ADICIÓN] Guard para ignorar hotkeys cuando escribes o dentro de data-no-hotkeys === */
+function __isEditable__(el) {
+  if (!el) return false;
+  if (el.isContentEditable) return true;
+  const tag = el.tagName?.toLowerCase?.();
+  return tag === 'input' || tag === 'textarea' || tag === 'select';
+}
+function __shouldIgnoreHotkeys__(e) {
+  const t = e?.target;
+  if (__isEditable__(t)) return true;                    // inputs / textarea / select / contentEditable
+  if (t?.closest?.('[data-no-hotkeys]')) return true;    // zonas marcadas en páginas (p.ej. formularios de pagos)
+  return false;
+}
+
 export default function HeaderAdmin() {
   const { props } = usePage();
   // Compatibilidad: auth.user (Jetstream/Breeze) o user directo
@@ -43,6 +57,28 @@ export default function HeaderAdmin() {
     const handler = (e) => { if (e.key === 'Escape') setOpen(false); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  /* === [ADICIÓN] Filtro global de hotkeys (solo evita propagación en formularios / zonas protegidas) ===
+     No altera tus atajos ni clicks. No hace preventDefault, solo corta propagación para que
+     otros listeners globales no se activen cuando estés escribiendo en formularios. */
+  useEffect(() => {
+    const stopIfForm = (e) => {
+      if (__shouldIgnoreHotkeys__(e)) {
+        e.stopPropagation();
+        // algunos libs usan stopImmediatePropagation
+        if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+      }
+    };
+    // lo ponemos en capture para ganar prioridad sobre otros listeners globales
+    window.addEventListener('keydown', stopIfForm, true);
+    window.addEventListener('keypress', stopIfForm, true);
+    window.addEventListener('keyup', stopIfForm, true);
+    return () => {
+      window.removeEventListener('keydown', stopIfForm, true);
+      window.removeEventListener('keypress', stopIfForm, true);
+      window.removeEventListener('keyup', stopIfForm, true);
+    };
   }, []);
 
   const handleLogout = () => {
